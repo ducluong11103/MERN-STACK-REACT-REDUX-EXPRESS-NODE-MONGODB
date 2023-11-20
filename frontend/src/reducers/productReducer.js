@@ -9,57 +9,62 @@ import {
 } from "../constants/productConstants";
 
 export const productReducer = (state = { products: [] }, action) => {
-  switch (action.type) {
-    case ALL_PRODUCT_REQUEST:
-      return {
-        loading: true,
-        products: [],
-      };
-    case ALL_PRODUCT_SUCCESS:
-      return {
-        loading: false,
-        products: action.payload.products,
-        productsCount: action.payload.productsCount,
-      };
-    case ALL_PRODUCT_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
-};
+    switch (action.type) {
+      case ALL_PRODUCT_REQUEST:
+        return {
+          loading: true,
+          products: [],
+        };
+      case ALL_PRODUCT_SUCCESS:
+        return {
+          loading: false,
+          products: action.payload.products,
+          productsCount: action.payload.productsCount,
+          resultPerPage:action.payload.resultPerPage,
+          // filteredProductsCount:action.payload.filteredProductsCount,
+        };
+      case ALL_PRODUCT_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+        };
 
-export const productDetailsReducer = (state = { product: {} }, action) => {
-  switch (action.type) {
-    case PRODUCT_DETAILS_REQUEST:
-      return {
-        loading: true,
-        ...state,
-      };
-    case PRODUCT_DETAILS_SUCCESS:
-      return {
-        loading: false,
-        product: action.payload,
-        error: null, // Đặt lại trường lỗi thành null sau khi tải chi tiết sản phẩm thành công
-      };
-    case PRODUCT_DETAILS_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null, // Xóa trường lỗi khi có action CLEAR_ERRORS
-      };
-    default:
-      return state;
-  }
-};
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+
+      default:
+        return state;
+    }
+  };
+
+  export const productDetailsReducer = (state = { product: {} }, action) => {
+    switch (action.type) {
+      case PRODUCT_DETAILS_REQUEST:
+        return {
+          loading: true,
+          ...state,
+        };
+      case PRODUCT_DETAILS_SUCCESS:
+        return {
+          loading: false,
+          product: action.payload,
+        };
+      case PRODUCT_DETAILS_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+        };
+
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+
+      default:
+        return state;
+    }
+  };
